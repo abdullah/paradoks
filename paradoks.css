@@ -1,0 +1,82 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  background: linear-gradient(270deg, #1b6ea7, #3f8abd);
+  background-size: 400% 400%;
+  color: #fff;
+}
+
+a {
+  color: #fff;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.desc {
+  max-width: 504px;
+  margin-bottom: 30px;
+}
+
+.card {
+  max-width: 504px;
+}
+
+.result {
+  text-align: center;
+}
+
+.result p {
+  margin: 0;
+  padding: 0;
+}
+
+.result h1 {
+  margin: 0 0 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+}
+
+.result a {
+  text-decoration: none;
+  margin: 15px;
+}
+
+.card span {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  float: left;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, .5);
+}
+
+nav {
+  padding: 1px;
+  width: 504px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, .5);
+}
+
+nav a {
+  display: block;
+  width: 50%;
+  padding: 20px 0;
+  float: left;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+}

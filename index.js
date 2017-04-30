@@ -1,34 +1,43 @@
+/**
+ *
+  Her tur icin sayilar arasi fark 1, kumeler arasi fark kume eleman sayisi +1 dir, Her turun baslangic sayisi bir onceki turun kumelerinin herhangi    bir kumesinin eleman sayisinin 2 katidir.
 
-var paradoks = [[], [], [], [], [], []];
+  Ornek:
+  tur 1 baslangic 1 fark 1 kume 1 kumeFarki 2
+  tur 2 baslangic 2 fark 1 kume 2 kumeFarki 3
+  tur 3 baslangic 4 fark 1 kume 4 kumeFarki 5
+  tur 4 baslangic 8 fark 1 kume 8 kumeFarki 9
+  tur 5 baslangic 16 fark 1 kume 16 kumeFarki 17
+ */
 
-for (var p1 = 1; p1 < 64; p1 += 2) {
-  paradoks[0].push(p1);
+var paradoks = [];
+
+var loop = true;
+var grupSize = 1;
+var cardSize = 0;
+var next = false;
+
+while (loop) {
+  paradoks[cardSize] = [];
+
+  for (var i = grupSize; i <= 100; i++) {
+    if (i % grupSize == 0) {
+      next = !next;
+    }
+
+    if (next) {
+      paradoks[cardSize].push(i);
+    }
+  }
+
+  cardSize++;
+  grupSize = grupSize * 2;
+  next = false;
+
+  if (cardSize == 7) {
+    loop = false;
+  }
 }
-
-for (var p2 = 2; p2 < 64; ) {
-  paradoks[1].push(p2);
-  p2 += p2 % 2 == 0 ? 1 : 3;
-}
-
-for (var p3 = 4, p3s = 1; p3 < 64; p3s++) {
-  paradoks[2].push(p3);
-  p3 += p3s % 4 == 0 && p3s != 0 ? 5 : 1;
-}
-
-for (var p4 = 8, p4s = 1; p4 < 64; p4s++) {
-  paradoks[3].push(p4);
-  p4 += p4s % 8 == 0 && p4s != 0 ? 9 : 1;
-}
-
-for (var p5 = 16, p5s = 1; p5 < 64; p5s++) {
-  paradoks[4].push(p5);
-  p5 += p5s % 16 == 0 && p5s != 0 ? 17 : 1;
-}
-
-for (var p6 = 32; p6 < 64; p6++) {
-  paradoks[5].push(p6);
-}
-
 
 new Vue({
   el: "#paradoks",
@@ -39,6 +48,15 @@ new Vue({
       result: 0
     };
   },
+  computed: {
+    resultText: function() {
+      if (this.result > 0 && this.result <= 100) {
+        return `😎😎 ${this.result} 😎😎`;
+      } else {
+        return `Whoops! sanırım olmadı  '${this.result}' bulduk ** tekrar dener misin?`;
+      }
+    }
+  },
   methods: {
     yep: function() {
       this.result += this.paradoks[this.step][0];
@@ -47,7 +65,7 @@ new Vue({
     nope: function() {
       this.step++;
     },
-    again: function(){
+    again: function() {
       this.step = 0;
       this.result = 0;
     }

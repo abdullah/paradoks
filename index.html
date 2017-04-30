@@ -12,20 +12,21 @@
 
 <body>
   <div class="container" id="paradoks">
-    <div class="desc" v-show="step !== 6">
-      1 - 63 arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
+    <div class="desc" v-show="step !== paradoks.length">
+      1 - 100 arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
     </div>
-    <div class="card" v-show="step !== 6">
+    <div class="card" v-show="step !== paradoks.length">
       <span v-for="p in paradoks[step]" :key="p">{{p}}</span>
     </div>
 
-    <nav v-show="step !== 6">
+    <nav v-show="step !== paradoks.length">
       <a href="" @click.prevent="nope">Yok</a>
       <a href="" @click.prevent="yep">Var</a>
     </nav>
-    <div class="result" v-show="step === 6">
-      <p>Tuttugunuz Sayi</p>
-      <h1>{{result}}</h1>
+    <div class="result" v-show="step === paradoks.length">
+      <!--<p>Tuttugunuz Sayi</p>-->
+      <!--<h1>{{result > 100 ? 'Whooops! -- Sanırım tahmin edemedik , maybe you can try again?' : result}}</h1>-->
+      <h1>{{resultText}}</h1>
       <a href="" @click.prevent="again">Tekrar Dene</a>
       <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
     </div>

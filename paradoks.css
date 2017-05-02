@@ -32,7 +32,7 @@ a {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 600px;
+  padding-bottom: 120px;
 }
 
 .card span {
@@ -48,14 +48,26 @@ a {
 }
 
 nav {
-  padding: 1px;
-  margin-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, .5);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(270deg, #1b6ea7, #3f8abd);
+  background-size: 400% 400%;
+  border-top: 2px solid #1b6ea7;
+}
+
+nav h3 {
+  padding: 10px;
+  margin: 0;
 }
 
 nav a {
   display: block;
-  width: 100px;
+  width: 50%;
   padding: 20px 0;
   float: left;
   text-align: center;

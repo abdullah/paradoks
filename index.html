@@ -12,18 +12,21 @@
 
 <body>
   <div class="container" id="paradoks">
+
     <div class="desc" v-show="step !== cardSize">
-      1 - 100 arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
-      <h3 v-show="step !== cardSize">{{7 - step}} Adim kaldi</h3>
+      1 - {{maxLimit}} arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
     </div>
+
+    <nav v-show="step !== cardSize">
+      <h3 v-show="step !== cardSize">{{logSum - step}} Adim kaldi</h3>
+      <a href="" @click.prevent="nope">Yok</a>
+      <a href="" @click.prevent="yep">Var</a>
+    </nav>
+
     <div class="card" v-show="step !== cardSize">
       <span v-for="p in currentCard" :key="p">{{p}}</span>
     </div>
 
-    <nav v-show="step !== cardSize">
-      <a href="" @click.prevent="nope">Yok</a>
-      <a href="" @click.prevent="yep">Var</a>
-    </nav>
 
     <transition name="bounce">
       <div class="result" v-show="step === cardSize">
@@ -32,8 +35,8 @@
         <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
       </div>
     </transition>
-  </div>
 
+  </div>
   <script src="index.js"></script>
 </body>
 

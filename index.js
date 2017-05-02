@@ -16,11 +16,14 @@ var loop = true;
 var grupSize = 1;
 var cardSize = 0;
 var next = false;
+var maxSize = 2048;
+var logSum = Math.floor(Math.log(maxSize) / Math.log(2));
+var maxLimit = 0;
 
 while (loop) {
   paradoks[cardSize] = [];
 
-  for (var i = grupSize; i <= 100; i++) {
+  for (var i = grupSize; i <= maxSize; i++) {
     if (i % grupSize == 0) {
       next = !next;
     }
@@ -30,11 +33,13 @@ while (loop) {
     }
   }
 
+  var maxCurrent = Math.max(...paradoks[cardSize]);
+  maxLimit =   maxCurrent > maxLimit ? maxCurrent : maxLimit;
+
   cardSize++;
   grupSize = grupSize * 2;
   next = false;
-
-  if (cardSize == 7) {
+  if (cardSize == logSum) {
     loop = false;
   }
 }
@@ -45,18 +50,20 @@ new Vue({
     return {
       paradoks: paradoks,
       step: 0,
-      result: 0
+      result: 0,
+      logSum: logSum,
+      maxLimit: maxLimit
     };
   },
   computed: {
-    cardSize: function(){
-      return paradoks.length
+    cardSize: function() {
+      return paradoks.length;
     },
     currentCard: function() {
       return this.paradoks[this.step];
     },
     resultText: function() {
-      if (this.result > 0 && this.result <= 100) {
+      if (this.result > 0 && this.result <= this.maxLimit) {
         return `😎😎 ${this.result} 😎😎`;
       } else {
         return `Whoops! sanırım olmadı  '${this.result}' bulduk ** tekrar dener misin?`;

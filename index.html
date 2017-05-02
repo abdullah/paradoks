@@ -12,24 +12,26 @@
 
 <body>
   <div class="container" id="paradoks">
-    <div class="desc" v-show="step !== paradoks.length">
+    <div class="desc" v-show="step !== cardSize">
       1 - 100 arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
+      <h3 v-show="step !== cardSize">{{7 - step}} Adim kaldi</h3>
     </div>
-    <div class="card" v-show="step !== paradoks.length">
-      <span v-for="p in paradoks[step]" :key="p">{{p}}</span>
+    <div class="card" v-show="step !== cardSize">
+      <span v-for="p in currentCard" :key="p">{{p}}</span>
     </div>
 
-    <nav v-show="step !== paradoks.length">
+    <nav v-show="step !== cardSize">
       <a href="" @click.prevent="nope">Yok</a>
       <a href="" @click.prevent="yep">Var</a>
     </nav>
-    <div class="result" v-show="step === paradoks.length">
-      <!--<p>Tuttugunuz Sayi</p>-->
-      <!--<h1>{{result > 100 ? 'Whooops! -- Sanırım tahmin edemedik , maybe you can try again?' : result}}</h1>-->
-      <h1>{{resultText}}</h1>
-      <a href="" @click.prevent="again">Tekrar Dene</a>
-      <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
-    </div>
+
+    <transition name="bounce">
+      <div class="result" v-show="step === cardSize">
+        <h1>{{resultText}}</h1>
+        <a href="" @click.prevent="again">Tekrar Dene</a>
+        <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
+      </div>
+    </transition>
   </div>
 
   <script src="index.js"></script>

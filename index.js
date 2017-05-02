@@ -49,6 +49,12 @@ new Vue({
     };
   },
   computed: {
+    cardSize: function(){
+      return paradoks.length
+    },
+    currentCard: function() {
+      return this.paradoks[this.step];
+    },
     resultText: function() {
       if (this.result > 0 && this.result <= 100) {
         return `😎😎 ${this.result} 😎😎`;

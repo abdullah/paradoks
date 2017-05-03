@@ -4,7 +4,9 @@ A game
 [Play](https://abdullah.github.io/paradoks/)
 
 ```
-Her tur icin sayilar arasi fark 1, kumeler arasi fark kume eleman sayisi +1 dir, Her turun baslangic sayisi bir onceki turun kumelerinin herhangi bir kumesinin eleman sayisinin 2 katidir.
+Her tur icin sayilar arasi fark 1, kumeler arasi fark kume eleman sayisi +1 dir,
+Her turun baslangic sayisi bir onceki turun kumelerinin herhangi bir kumesinin 
+eleman sayisinin 2 katidir.
 
 Ornek:
 tur 1 baslangic 1 fark 1 kume 1 kumeFarki 2

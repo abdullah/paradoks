@@ -6,36 +6,42 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Paradoks</title>
   <link rel="stylesheet" href="paradoks.css">
-  <script src="//unpkg.com/vue@2.3.0"></script>
+  <script src="//unpkg.com/vue"></script>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container" id="paradoks">
+  <div id="paradoks">
+    <div v-show="step !== totalStep">
+      <nav>
+        <p>
+          Choose a number between 1 and
+          <input v-model="maxSizeInput" type="text">
+          If you have a number on the screen press
+          <button @click="yep">
+            Yep
+          </button>
+          or
+          <button @click="nope">
+            Nope
+          </button>
+        </p>
 
-    <div class="desc" v-show="step !== cardSize">
-      1 - {{maxLimit}} arasi bir sayi tutun sayi kartlar icinde var ise 'var' yok ise 'yok' butonuna tiklayin.
-    </div>
+        <div class="steps-indicator">
+          <b>{{ totalStep - step }}</b> steps remaining
+        </div>
+      </nav>
 
-    <nav v-show="step !== cardSize">
-      <h3 v-show="step !== cardSize">{{logSum - step}} Adim kaldi</h3>
-      <a href="" @click.prevent="nope">Yok</a>
-      <a href="" @click.prevent="yep">Var</a>
-    </nav>
-
-    <div class="card" v-show="step !== cardSize">
-      <span v-for="p in currentCard" :key="p">{{p}}</span>
-    </div>
-
-
-    <transition name="bounce">
-      <div class="result" v-show="step === cardSize">
-        <h1>{{resultText}}</h1>
-        <a href="" @click.prevent="again">Tekrar Dene</a>
-        <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
+      <div class="card">
+        <span v-for="p in currentCard" :key="p">{{ p }}</span>
       </div>
-    </transition>
+    </div>
 
+    <div v-if="step === totalStep" class="result">
+      <h1>{{ resultText }}</h1>
+      <a href="" @click.prevent="reset">Try again</a>
+      <a href="https://github.com/abdullah/paradoks" target="_blank">GitHub</a>
+    </div>
   </div>
   <script src="index.js"></script>
 </body>

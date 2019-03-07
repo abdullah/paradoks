@@ -1,86 +1,95 @@
-/**
- *
-  Her tur icin sayilar arasi fark 1, kumeler arasi fark kume eleman sayisi +1 dir, 
-  Her turun baslangic sayisi bir onceki turun kumelerinin herhangi bir kumesinin 
-  eleman sayisinin 2 katidir.
-
-  Ornek:
-  tur 1 baslangic 1 fark 1 kume 1 kumeFarki 2
-  tur 2 baslangic 2 fark 1 kume 2 kumeFarki 3
-  tur 3 baslangic 4 fark 1 kume 4 kumeFarki 5
-  tur 4 baslangic 8 fark 1 kume 8 kumeFarki 9
-  tur 5 baslangic 16 fark 1 kume 16 kumeFarki 17
- */
-
-var paradoks = [];
-
-var loop = true;
-var grupSize = 1;
-var cardSize = 0;
-var next = false;
-var maxSize = 2048;
-var logSum = Math.floor(Math.log(maxSize) / Math.log(2));
-var maxLimit = 0;
-
-while (loop) {
-  paradoks[cardSize] = [];
-
-  for (var i = grupSize; i <= maxSize; i++) {
-    if (i % grupSize == 0) {
-      next = !next;
-    }
-
-    if (next) {
-      paradoks[cardSize].push(i);
-    }
-  }
-
-  var maxCurrent = Math.max(...paradoks[cardSize]);
-  maxLimit =   maxCurrent > maxLimit ? maxCurrent : maxLimit;
-
-  cardSize++;
-  grupSize = grupSize * 2;
-  next = false;
-  if (cardSize == logSum) {
-    loop = false;
-  }
-}
-
 new Vue({
-  el: "#paradoks",
-  data: function() {
+  el: '#paradoks',
+  data() {
     return {
-      paradoks: paradoks,
       step: 0,
       result: 0,
-      logSum: logSum,
-      maxLimit: maxLimit
+      maxSize: 2048,
+      maxSizeInput: 2048
     };
   },
   computed: {
-    cardSize: function() {
-      return paradoks.length;
+    totalStep() {
+      return Math.floor(Math.log2(this.maxSize));
     },
-    currentCard: function() {
+    paradoks() {
+      const paradoks = [];
+      let loop = true;
+      let grupSize = 1;
+      let cardSize = 0;
+      let next = false;
+      let maxLimit = 0;
+
+      while (loop) {
+        paradoks[cardSize] = [];
+
+        for (let i = grupSize; i <= this.maxSize; i++) {
+          if (i % grupSize == 0) {
+            next = !next;
+          }
+
+          if (next) {
+            paradoks[cardSize].push(i);
+          }
+        }
+
+        const maxCurrent = Math.max(...paradoks[cardSize]);
+        maxLimit = maxCurrent > maxLimit ? maxCurrent : maxLimit;
+
+        cardSize++;
+        grupSize *= 2;
+        next = false;
+        if (cardSize == this.totalStep) {
+          loop = false;
+        }
+      }
+
+      return paradoks;
+    },
+    currentCard() {
       return this.paradoks[this.step];
     },
-    resultText: function() {
-      if (this.result > 0 && this.result <= this.maxLimit) {
+    resultText() {
+      if (this.result > 0 && this.result) {
         return `😎😎 ${this.result} 😎😎`;
-      } else {
-        return `Whoops! sanırım olmadı  '${this.result}' bulduk ** tekrar dener misin?`;
+      }
+      return `Whoops! '${this.result}' is found.`;
+
+    }
+  },
+  watch: {
+    maxSizeInput(value) {
+      if (value > 3) {
+
+        if (value > 5000) {
+          const res = confirm('Are you sure you want to render more than 5000?');
+          if (!res) {
+            return;
+          }
+        }
+
+        this.maxSize = value;
+        this.reset();
       }
     }
   },
   methods: {
-    yep: function() {
+    changeRadius() {
+      setTimeout(() => {
+        const radius = `${this.step % 2 == 0 ? 50 : 20}% `;
+        document.body.style.setProperty('--border-radius', radius);
+      }, 0);
+    },
+    yep() {
       this.result += this.paradoks[this.step][0];
       this.step++;
+      this.changeRadius();
     },
-    nope: function() {
+    nope() {
       this.step++;
+      this.changeRadius();
     },
-    again: function() {
+    reset() {
       this.step = 0;
       this.result = 0;
     }

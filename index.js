@@ -10,7 +10,7 @@ new Vue({
   },
   computed: {
     totalStep() {
-      return Math.floor(Math.log2(this.maxSize));
+      return Math.ceil(Math.log2(this.maxSize));
     },
     paradoks() {
       const paradoks = [];
@@ -32,9 +32,6 @@ new Vue({
             paradoks[cardSize].push(i);
           }
         }
-
-        const maxCurrent = Math.max(...paradoks[cardSize]);
-        maxLimit = maxCurrent > maxLimit ? maxCurrent : maxLimit;
 
         cardSize++;
         grupSize *= 2;
@@ -73,21 +70,21 @@ new Vue({
       }
     }
   },
+  mounted() {
+    const extraRuleTag = document.querySelector('#extra-rule');
+    document.addEventListener('keydown', (e) => {
+      if (Number.isSafeInteger(parseInt(e.key))) {
+        extraRuleTag.innerHTML = `[class^="${e.key}"] { background-color: red }`
+      }
+    })
+  },
   methods: {
-    changeRadius() {
-      setTimeout(() => {
-        const radius = `${this.step % 2 == 0 ? 50 : 20}% `;
-        document.body.style.setProperty('--border-radius', radius);
-      }, 0);
-    },
     yep() {
       this.result += this.paradoks[this.step][0];
       this.step++;
-      this.changeRadius();
     },
     nope() {
       this.step++;
-      this.changeRadius();
     },
     reset() {
       this.step = 0;
